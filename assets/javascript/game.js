@@ -67,13 +67,13 @@ function startGame() {
         // $(".overlay").hide();
         $(".keeper-text").fadeOut(2000);
         setTimeout(function() {
-            $(".keeper-img").attr("src", "https://www.themarysue.com/wp-content/uploads/2016/08/monty-python-and-the-holy-grail-still2.jpg");
+            $(".keeper-img").attr("src", "assets/images/ready.jpg");
             $(".stand-aside").html("<p>Ask me the questions, Bridge Keeper!<br>I am not afraid....<p>")
             $(".stand-aside").fadeOut(6000);
         }, 3000);
         setTimeout(function() {
             console.log("set timeout");
-            $(".keeper-img").attr("src", "https://vignette.wikia.nocookie.net/montypython/images/c/c1/Bridge_of_Death_monty_python_and_the_holy_grail_591679_800_4411271399897.jpg/revision/latest?cb=20130716234623");
+            $(".keeper-img").attr("src", "assets/images/BridgeOfDeath.jpg");
             buildQuiz();
         }, 9000);
     }
@@ -127,10 +127,7 @@ function checkAnswers() {
     if (userAnswers[a] === myQuestions[a].correctAnswer) {
         numCorrect++;
         if (numCorrect === 3) {
-            $(".keeper-text-over").empty();
-            setTimeout(function() {
-                youWin();
-            }, 2000);          
+            youWin()
         }
         else {
             $(".quiz-options").empty();
@@ -141,9 +138,7 @@ function checkAnswers() {
         }
     }
     else {
-        setTimeout(function() {
-            youLose();
-        }, 500);  
+        youLose();
     }
     
 };
