@@ -17,29 +17,52 @@
 </head>
 
 <body>
+
+<div id="title-div" class="container">
+    <div class="row">
+        <div class="col-12 text-center">
+            <img class="img-fluid" src="assets/images/death.png">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 text-center">
+            <button id="title-button" class="btn center-text btn-danger">Cross the Bridge!</button>
+        </div>
+    </div>
+            
+</div>
+
 <div class="container keeper p-0" id="questions-three" >
     <img class="img-fluid keeper-img p-0" src="https://vignette.wikia.nocookie.net/montypython/images/c/c1/Bridge_of_Death_monty_python_and_the_holy_grail_591679_800_4411271399897.jpg/revision/latest?cb=20130716234623">
     <div class="keeper-text py-1 px-4">
-        <h1 class="p-0 m-0">Stop!</h1>
+        <h1 class="p-0 m-0 keeper-text-stop">Stop!!</h1>
+        <h1 class="p-0 m-0 keeper-text-over"></h1>
+    </div>
+    <div class="keeper-text keeper-text-under">
         <p class="p-0 m-0">Who would cross the Bridge of Death must answer ME these questions THREE...'ere the other side he see...</p>
     </div>
     <div class="stand-aside py-1 px-4">
     </div>
-    <div class="overlay">
-    </div>
+    <!-- <div class="overlay">
+    </div> -->
 
 </div>
+
 
 
 <div id="quiz-div" class="container p-2 quiz-container">
     <div class="row">
         <div class="col-md-8 col-12 align-self-center quiz-options"></div>
         <div class="col-md-4 col-12 align-self-center">
-            <button id="submit-button">Submit Answer</button>
+            <button id="submit-button" class="btn btn-danger my-1">Submit Answer</button>
         </div>
     </div>
 </div>
-<div id="end-message" class="quiz-container end-message"></div>
+<div class="container p-2 quiz-container">
+    <div class="row">
+        <div id="end-message" class="quiz-container end-message col-12 text-center"></div>
+    </div>
+</div>
 
 
 <script src="assets/javascript/game.js"></script>

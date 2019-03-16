@@ -7,14 +7,32 @@ body {
     margin-right: 10px;
 }
 
-.keeper-text {
+.keeper-text-stop {
+    position: absolute;
+    top: 10%;
+    right: 5%;
+    width: 100%;
+    color: white;
+    font-size: 6rem;
+    text-align: right;
+
+}
+
+.keeper-text-over {
     position: absolute;
     top: 0;
     right: 0;
-    width: 65%;
+    width: 100%;
     color: white;
-    font-size: 1.5em;
+    font-size: 5rem;
     text-align: right;
+
+}
+.keeper-text-under {
+    position: relative;
+    width: 100%;
+    color: white;
+    font-size: 2em;
 }
 
 
@@ -24,23 +42,24 @@ body {
     left: 0;
     width: 100%;
     color: paleturquoise;
+    font-size: 2.5em;
 }
 
 .end-message {
     color: paleturquoise;
-    font-size: 6em;
-    text-align: center;
+    font-size: 8em;
 }
 
 
 .keeper {
     position: relative;
-    cursor: grab;
+    /* cursor: pointer; */
     max-width: 750px;
     margin-top: 50px;
 }
 
-.overlay {
+/*initially did an overlay for the image to make it clickable, but decided to go with auto timer instead because it flowed nicely. Keeping this here in case I come back to it!
+/* .overlay {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -55,7 +74,7 @@ body {
   
   .keeper:hover .overlay {
     opacity: .75;
-  }
+  } */
 
 .quiz-options {
     font-size: 1.5em;
@@ -67,6 +86,8 @@ body {
     max-width: 750px;
 }
 
+
+
 /* phones */
 @media only screen and (max-width: 767px) {
 .stand-aside {
@@ -77,28 +98,33 @@ body {
 }
 
 
-.keeper-text {
+.keeper-text-over {
+    position: absolute;
+    top: 0;
+    right: 5%;
+    width: 65%;
+    color: white;
+    font-size: 4rem;
+    text-align: right;
+
+}
+.keeper-text-under {
     position: relative;
+    padding: 5px;
     width: 100%;
     color: white;
-    text-align: right;
+    font-size: 1.5em;
 }
+
 
 .keeper {
     margin-top: 0;
 }
 
-.question {
-    margin-top: 0;
-    margin-right: 0;
-}
 
-.question-options {
-
+.end-message {
+    color: paleturquoise;
+    font-size: 5em;
 }
-    
-}
-/* portrait phones */
-@media only screen and (max-width: 767px) and (orientation: portrait) {
     
 }

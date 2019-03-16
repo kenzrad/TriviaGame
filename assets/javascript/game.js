@@ -37,34 +37,57 @@ var myQuestions = [
     },
 ];
 
-$(".keeper").on("click", startGame)
+$(".keeper").hide();
 $("#quiz-div").hide();
+$("#end-message").hide();
+
+$("#title-button").on("click", makeKeeper);
+
+function makeKeeper () {
+    $("#title-div").fadeOut(2000);
+    setTimeout(function() {
+        $("#title-div").hide();
+        $(".keeper").show();
+        $(".keeper-text-under").hide();
+        $(".keeper-text-over").hide();
+    }, 3000);
+    setTimeout(function() {
+        $(".keeper-text-under").show();
+        $(".keeper-text-stop").hide();
+        // $(".keeper").on("click", startGame);
+    }, 5000);
+    setTimeout(function() {
+        startGame();
+    }, 8000);
+}
 
 function startGame() {
     if (gameOn === false) {
         gameOn = true;
-        $(".overlay").hide();
+        // $(".overlay").hide();
         $(".keeper-text").fadeOut(2000);
         setTimeout(function() {
-            $(".stand-aside").html("<h3>Ask me the questions, Bridge Keeper!</h3><h1> I am not afraid....</h1>")
-            $(".stand-aside").fadeOut(4000);
-        }, 2000);
+            $(".keeper-img").attr("src", "https://www.themarysue.com/wp-content/uploads/2016/08/monty-python-and-the-holy-grail-still2.jpg");
+            $(".stand-aside").html("<p>Ask me the questions, Bridge Keeper!<br>I am not afraid....<p>")
+            $(".stand-aside").fadeOut(6000);
+        }, 3000);
         setTimeout(function() {
             console.log("set timeout");
+            $(".keeper-img").attr("src", "https://vignette.wikia.nocookie.net/montypython/images/c/c1/Bridge_of_Death_monty_python_and_the_holy_grail_591679_800_4411271399897.jpg/revision/latest?cb=20130716234623");
             buildQuiz();
-        }, 7000);
+        }, 9000);
     }
 }
 
 
 function buildQuiz() {
     count++;
-    console.log("I'm in the build quiz function!");
-    $(".keeper-text").empty();
+    $(".keeper-text-under").empty();
+    $(".keeper-text-over").empty();
+    $(".keeper-text-stop").empty();
     $(".quiz-options").remove("#last-question");
     a = count;
     answers = [];
-    console.log(answers + "should be empty");
     for(letter in myQuestions[a].answers){
         answers.push(
             `<labels>
@@ -75,12 +98,11 @@ function buildQuiz() {
                 ${myQuestions[a].answers[letter]} <br>
             </labels>`
         );
-        console.log(answers);
     }
     answers = answers.join('');
-    console.log(answers);
     $(".keeper-text").show();
-    $(".keeper-text").html(`<p>${myQuestions[a].question}</p>`);
+    $(".keeper-text-over").show();
+    $(".keeper-text-over").html(`<p>${myQuestions[a].question}</p>`);
     setTimeout (function() {
         $("#quiz-div").show();
         $(".quiz-options").html(answers);
@@ -89,31 +111,28 @@ function buildQuiz() {
 }
 
 function collectResults(){
-    $("#quiz-div").hide();
     var radioValue = $(`input[name="Question${a}"]:checked`).val();
     userAnswers.push(radioValue);
     console.log([a] + " Result =" + radioValue);
     if (typeof radioValue === "undefined") {
-        alert("Please complete all answers before submitting (because I haven't made my code that complicated yet OKAY?!");
-        return;        
+        alert("At least TRY to answer the question!");   
     }
-    checkAnswers();
+    else {
+        $("#quiz-div").hide();
+        checkAnswers();
+    }
 };
 
 function checkAnswers() {
     if (userAnswers[a] === myQuestions[a].correctAnswer) {
         numCorrect++;
-        console.log("Number correct is: " + numCorrect)
         if (numCorrect === 3) {
-            $(".keeper-text").empty();
-            $(".keeper-text").html(`<h1 class="question">You may pass!</h1>`);
+            $(".keeper-text-over").empty();
             setTimeout(function() {
                 youWin();
-            }, 1000);          
+            }, 2000);          
         }
         else {
-            console.log("Still playing");
-            $(".keeper-text").empty();
             $(".quiz-options").empty();
             setTimeout(function() {
                 buildQuiz();
@@ -122,28 +141,26 @@ function checkAnswers() {
         }
     }
     else {
-        $(".keeper-text").empty();
-        $(".keeper-text").html(`<h1 class="question">HEH HEH HEH!</h1>`);
         setTimeout(function() {
             youLose();
-        }, 1000);  
+        }, 500);  
     }
     
 };
 
 function youWin() {
-    console.log("You win!");
     $("#quiz-div").hide();
-    $(".keeper-text").empty();
-    $(".keeper-img").attr("src", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-6tIeLWoW6UYd9nQAFDjQY0uiwcaGuPf6Y8AZiNZSgIf2nryL");
+    $(".keeper-text").hide();
+    $(".keeper-img").attr("src", "http://images.amcnetworks.com/bbcamerica.com/wp-content/uploads/2015/10/montypyhton.jpg");
+    $("#end-message").show();
     $("#end-message").text("YOU DID IT!");
 };
 
 function youLose() {
-    console.log("You lose!");
     $("#quiz-div").hide();
-    $(".keeper-text").empty();
+    $(".keeper-text").hide();
     $(".keeper-img").attr("src", "https://i.makeagif.com/media/2-07-2016/oMP7gC.gif");
+    $("#end-message").show();
     $("#end-message").text("SAYONARA!");
 };
 
