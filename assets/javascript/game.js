@@ -1,29 +1,42 @@
-//Defining constants - need to understand the advantage to constants vs vars, but still a little hairy on this
+
+//change this part to jQuery, parts later are not working with that so I need to figure out the semantics
 var quizContainer = document.getElementById('quiz-div');
 var resultsContainer = document.getElementById('results-div');
 var submitButton = document.getElementById('submit-div');
+
 var output = [];
 var answers;
 var userAnswers = [];
 var numCorrect = 0;
+var currentQuestion = 0;
+
 var myQuestions = [
     {
-        question: "What is 2+2?",
+        question: "What is your name?",
         answers: {
-            a: "1",
-            b: "2",
-            c: "4",
+            a: "Blue!",
+            b: "Arthur, King of the Britts!",
+            c: "I've got a lovely bunch of coconuts",
         },
-        correctAnswer: "c"
+        correctAnswer: "b"
     },
     {
-        question: "What is 6+2?",
+        question: "What is your favorite color?",
         answers: {
-            a: "2",
-            b: "4",
-            c: "8",
+            a: "Blue!",
+            b: "Blu...no yellow!",
+            c: "Darkness",
         },
-        correctAnswer: "c"
+        correctAnswer: "a"
+    },
+    {
+        question: "What is the airspeed velocity of an unladen swallow?",
+        answers: {
+            a: "11 mps",
+            b: "African or European?",
+            c: "Assryia",
+        },
+        correctAnswer: "b"
     },
 ];
 
@@ -40,19 +53,19 @@ function buildQuiz() {
             answers.push(
                 `<labels>
                 <input
-                id = "Q${i}"
                 type = "radio" 
-                name = "Question${i}" 
+                name = "Question${i}"
                 value = "${letter}">
-                    ${letter} : ${myQuestions[i].answers[letter]}
+                    ${myQuestions[i].answers[letter]} <br>
                 </labels>`
             );
         }
         output.push(
-            `<div class="question">${myQuestions[i].question}</div>
-            <div class="question">${answers.join('')}</div>`
+            `<div class="question">${i+1}: ${myQuestions[i].question}</div>
+            <div class="answers">${answers.join('')}<br></div>`
         );
     }
+    //output join wasn't working for me using jQuery
     quizContainer.innerHTML = output.join('');
 }
 
@@ -76,7 +89,7 @@ function checkAnswers() {
         }
     }
     console.log(numCorrect);
-    resultsContainer.innerHTML = "Results: " + numCorrect + " out of " + myQuestions.length;
+    resultsContainer.innerHTML = "Your Results: " + numCorrect + " out of " + myQuestions.length;
     //clearQuiz()
 }
 

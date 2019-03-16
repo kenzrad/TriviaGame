@@ -1,0 +1,23 @@
+.correctText {
+    color: green;
+}
+
+.question {
+    font-style: bold;
+    margin: 5px;
+}
+
+.answers {
+    margin-left: 20px;
+}
+
+.instructions {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.ins-img {
+    position: relative;
+}
+
