@@ -1,14 +1,11 @@
-
-//change this part to jQuery, parts later are not working with that so I need to figure out the semantics
-var quizContainer = document.getElementById('quiz-div');
-var resultsContainer = document.getElementById('results-div');
-var submitButton = document.getElementById('submit-div');
-
 var output = [];
 var answers;
 var userAnswers = [];
 var numCorrect = 0;
 var currentQuestion = 0;
+var gameOn = false;
+var count = -1;
+var a = 0;
 
 var myQuestions = [
     {
@@ -40,61 +37,115 @@ var myQuestions = [
     },
 ];
 
+$(".keeper").on("click", startGame)
+$("#quiz-div").hide();
 
-
-//////FUNCTION --> BUILD QUIZ////////
-//this function will build the quiz questions and display on the DOC
-function buildQuiz() {
-
-    //Store html output (answers)
-    for(var i=0; i<myQuestions.length; i++){
-        answers = [];
-        for(letter in myQuestions[i].answers){
-            answers.push(
-                `<labels>
-                <input
-                type = "radio" 
-                name = "Question${i}"
-                value = "${letter}">
-                    ${myQuestions[i].answers[letter]} <br>
-                </labels>`
-            );
-        }
-        output.push(
-            `<div class="question">${i+1}: ${myQuestions[i].question}</div>
-            <div class="answers">${answers.join('')}<br></div>`
-        );
+function startGame() {
+    if (gameOn === false) {
+        gameOn = true;
+        $(".overlay").hide();
+        $(".keeper-text").fadeOut(2000);
+        setTimeout(function() {
+            $(".stand-aside").html("<h3>Ask me the questions, Bridge Keeper!</h3><h1> I am not afraid....</h1>")
+            $(".stand-aside").fadeOut(4000);
+        }, 2000);
+        setTimeout(function() {
+            console.log("set timeout");
+            buildQuiz();
+        }, 7000);
     }
-    //output join wasn't working for me using jQuery
-    quizContainer.innerHTML = output.join('');
+}
+
+
+function buildQuiz() {
+    count++;
+    console.log("I'm in the build quiz function!");
+    $(".keeper-text").empty();
+    $(".quiz-options").remove("#last-question");
+    a = count;
+    answers = [];
+    console.log(answers + "should be empty");
+    for(letter in myQuestions[a].answers){
+        answers.push(
+            `<labels>
+            <input
+            type = "radio" 
+            name = "Question${a}"
+            value = "${letter}">
+                ${myQuestions[a].answers[letter]} <br>
+            </labels>`
+        );
+        console.log(answers);
+    }
+    answers = answers.join('');
+    console.log(answers);
+    $(".keeper-text").show();
+    $(".keeper-text").html(`<p>${myQuestions[a].question}</p>`);
+    setTimeout (function() {
+        $("#quiz-div").show();
+        $(".quiz-options").html(answers);
+    }, 1000);
+
 }
 
 function collectResults(){
-    for(var i=0; i < myQuestions.length; i++){
-        var radioValue = $(`input[name="Question${i}"]:checked`).val();
-        userAnswers.push(radioValue);
-        console.log([i] + " Result =" + radioValue);
-        if (typeof radioValue === "undefined") {
-            alert("Please complete all answers before submitting (because I haven't made my code that complicated yet OKAY?!");
-            return;        
-        }
+    $("#quiz-div").hide();
+    var radioValue = $(`input[name="Question${a}"]:checked`).val();
+    userAnswers.push(radioValue);
+    console.log([a] + " Result =" + radioValue);
+    if (typeof radioValue === "undefined") {
+        alert("Please complete all answers before submitting (because I haven't made my code that complicated yet OKAY?!");
+        return;        
     }
     checkAnswers();
 };
 
 function checkAnswers() {
-    for(var i=0; i < myQuestions.length; i++){
-        if (userAnswers[i] === myQuestions[i].correctAnswer) {
-            numCorrect++;
+    if (userAnswers[a] === myQuestions[a].correctAnswer) {
+        numCorrect++;
+        console.log("Number correct is: " + numCorrect)
+        if (numCorrect === 3) {
+            $(".keeper-text").empty();
+            $(".keeper-text").html(`<h1 class="question">You may pass!</h1>`);
+            setTimeout(function() {
+                youWin();
+            }, 1000);          
+        }
+        else {
+            console.log("Still playing");
+            $(".keeper-text").empty();
+            $(".quiz-options").empty();
+            setTimeout(function() {
+                buildQuiz();
+            }, 1000);    
+
         }
     }
-    console.log(numCorrect);
-    resultsContainer.innerHTML = "Your Results: " + numCorrect + " out of " + myQuestions.length;
-    //clearQuiz()
-}
+    else {
+        $(".keeper-text").empty();
+        $(".keeper-text").html(`<h1 class="question">HEH HEH HEH!</h1>`);
+        setTimeout(function() {
+            youLose();
+        }, 1000);  
+    }
+    
+};
 
-//function clearQuiz() {}
+function youWin() {
+    console.log("You win!");
+    $("#quiz-div").hide();
+    $(".keeper-text").empty();
+    $(".keeper-img").attr("src", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-6tIeLWoW6UYd9nQAFDjQY0uiwcaGuPf6Y8AZiNZSgIf2nryL");
+    $("#end-message").text("YOU DID IT!");
+};
 
-buildQuiz(myQuestions, quizContainer); 
+function youLose() {
+    console.log("You lose!");
+    $("#quiz-div").hide();
+    $(".keeper-text").empty();
+    $(".keeper-img").attr("src", "https://i.makeagif.com/media/2-07-2016/oMP7gC.gif");
+    $("#end-message").text("SAYONARA!");
+};
+
 $("#submit-button").on("click", collectResults)
 

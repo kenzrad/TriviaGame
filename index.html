@@ -17,24 +17,29 @@
 </head>
 
 <body>
-<div class="container" id="questions-three">
-    <figure class="figure">
-        <img 
-            class="figure-img img-fluid ins-img" 
-            src="https://vignette.wikia.nocookie.net/montypython/images/c/c1/Bridge_of_Death_monty_python_and_the_holy_grail_591679_800_4411271399897.jpg/revision/latest?cb=20130716234623" 
-            alt="keeper">
-        <figcaption class="figure-caption instructions">
-            Stop! Who would cross the Bridge of Death must answer me these questions three, 'ere the other side he see.
-        </figcaption>
-    </figure>
-    <button id="start-button">
-        Ask me the questions, bridge-keeper. I'm not afraid.
-    </button>
+<div class="container keeper p-0" id="questions-three" >
+    <img class="img-fluid keeper-img p-0" src="https://vignette.wikia.nocookie.net/montypython/images/c/c1/Bridge_of_Death_monty_python_and_the_holy_grail_591679_800_4411271399897.jpg/revision/latest?cb=20130716234623">
+    <div class="keeper-text py-1 px-4">
+        <h1 class="p-0 m-0">Stop!</h1>
+        <p class="p-0 m-0">Who would cross the Bridge of Death must answer ME these questions THREE...'ere the other side he see...</p>
+    </div>
+    <div class="stand-aside py-1 px-4">
+    </div>
+    <div class="overlay">
+    </div>
+
 </div>
 
-<div id="quiz-div"></div>
-<button id="submit-button">Submit Answer</button>
-<div id="results-div"></div>
+
+<div id="quiz-div" class="container p-2 quiz-container">
+    <div class="row">
+        <div class="col-md-8 col-12 align-self-center quiz-options"></div>
+        <div class="col-md-4 col-12 align-self-center">
+            <button id="submit-button">Submit Answer</button>
+        </div>
+    </div>
+</div>
+<div id="end-message" class="quiz-container end-message"></div>
 
 
 <script src="assets/javascript/game.js"></script>

@@ -1,23 +1,104 @@
-.correctText {
-    color: green;
+body {
+    background-color: black;
 }
 
 .question {
-    font-style: bold;
-    margin: 5px;
+    margin-top: 50px;
+    margin-right: 10px;
 }
 
-.answers {
-    margin-left: 20px;
-}
-
-.instructions {
+.keeper-text {
     position: absolute;
     top: 0;
     right: 0;
+    width: 65%;
+    color: white;
+    font-size: 1.5em;
+    text-align: right;
 }
 
-.ins-img {
+
+.stand-aside {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    color: paleturquoise;
+}
+
+.end-message {
+    color: paleturquoise;
+    font-size: 6em;
+    text-align: center;
+}
+
+
+.keeper {
     position: relative;
+    cursor: grab;
+    max-width: 750px;
+    margin-top: 50px;
 }
 
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: .5s ease;
+    background-color: black;
+  }
+  
+  .keeper:hover .overlay {
+    opacity: .75;
+  }
+
+.quiz-options {
+    font-size: 1.5em;
+    color: paleturquoise;
+    max-width: 750px;
+}
+
+.quiz-container {
+    max-width: 750px;
+}
+
+/* phones */
+@media only screen and (max-width: 767px) {
+.stand-aside {
+    width: 100%;
+    color: paleturquoise;
+    position: relative;
+    font-size: 1.5em;
+}
+
+
+.keeper-text {
+    position: relative;
+    width: 100%;
+    color: white;
+    text-align: right;
+}
+
+.keeper {
+    margin-top: 0;
+}
+
+.question {
+    margin-top: 0;
+    margin-right: 0;
+}
+
+.question-options {
+
+}
+    
+}
+/* portrait phones */
+@media only screen and (max-width: 767px) and (orientation: portrait) {
+    
+}
